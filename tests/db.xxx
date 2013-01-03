@@ -1,0 +1,16 @@
+$TTL	10800
+@	IN	SOA	ns.xxx.ru. admin.xxx.ru. (
+			2013010100	; Serial
+			10800		; Refresh
+			3600		; Retry
+			604800		; Expire
+			10800		; Negative Cache TTL
+)
+
+@		NS	ns.xxx.ru.
+@		NS	ns2.xxx.ru.
+
+@		A	4.3.2.1
+@		MX	10 mxmx.example.com.
+@		TXT	("test re\"cord	1"
+			"ssss")
