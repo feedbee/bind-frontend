@@ -31,5 +31,5 @@ $data_structure_example = array(
 
 require_once __DIR__ . '/app/bootstrap.php';
 
-$records = \Bind\ZoneFile\Reader\Reader::readStdin();
+$records = \Bind\ZoneFile\Reader\StandardReader::readStdin();
 var_dump($records);
