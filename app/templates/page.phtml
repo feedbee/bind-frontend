@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bind9 Frontend</title>
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>DNS zone example.com</h1>
+            <h3>SOA record and global TTL</h3>
+<pre>
+$TTL    10800
+@       IN      SOA     ns1.example.com. support.example.com. (
+                        2011122801	; serial, todays date + todays serial #
+                        10800		; refresh, seconds
+                        3600		; retry, seconds
+                        604800		; expire, seconds
+                        86400 )		; minimum, seconds
+</pre>
+            <a class="btn btn-small"><i class="icon-edit"></i> Edit</a>
+
+            <h3>Existed records <a class="btn btn-mini btn-success" id="create-new-record"><i class="icon-plus-sign icon-white"></i> Create new</a></h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Domain</th>
+                    <th>Type</th>
+                    <th>Raw Value</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>@</td>
+                    <td>A</td>
+                    <td>1.1.1.1</td>
+                    <td>
+                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
+                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>example.com.</td>
+                    <td>NS</td>
+                    <td>ns1.example.com.</td>
+                    <td>
+                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
+                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>org</td>
+                    <td>CNAME</td>
+                    <td>example.org</td>
+                    <td>
+                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
+                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>example.com.</td>
+                    <td>TXT</td>
+                    <td>v=spf1 -all</td>
+                    <td>
+                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
+                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>example.com.</td>
+                    <td>MX</td>
+                    <td>10 example.net.</td>
+                    <td>
+                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
+                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
+                    </td>
+                </tr>
+
+                <tr id="record-add-template" style="display: none;">
+                    <td></td>
+                    <td><input type="text"  class="form-domain-input" name="record[domain]" placeholder="@, relative or absolute.com."></td>
+                    <td><select name="record[5][type]" class="input-small">
+                        <option value="A">A</option>
+                        <option value="AAAA">AAAA</option>
+                        <option value="CNAME">CNAME</option>
+                        <option value="NS">NS</option>
+                        <option value="MX">MX</option>
+                        <option value="TXT">TXT</option>
+                        <option value="SRV">SRV</option>
+                    </select></td>
+                    <td><div class="input-append">
+                        <input type="text" name="record[value]" class="input-xxlarge form-value-input" placeholder="1.1.1.1, example.com. or 10 mx.example.com.">
+                        <button class="btn" type="button"><i class="icon-question-sign"></i></button>
+                    </div></td>
+                    <td>
+                        <button class="btn btn-mini btn-primary form-save-button"><i class="icon-ok-circle icon-white"></i> Save</button>
+                        or <button class="btn btn-mini form-cancel-button">Cancel</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="modal-removal" class="modal hide" role="dialog" tabindex="-1">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Record removal</h3>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-error">Are you sure to remove record #<span class="removal-record-id">0</span>?</p>
+                    <pre class="removal-record-contents"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn btn-danger removal-record-do" data-dismiss="modal">Yes, remove it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/jquery.hotkeys.js"></script>
+<script src="bootstrap/js/bootstrap-tooltip.js"></script>
+<script src="bootstrap/js/bootstrap-modal.js"></script>
+
+<script src="js/bind-frontend-ui.js"></script>
+</body>
+</html>
