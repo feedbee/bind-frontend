@@ -16,9 +16,8 @@ class Record
 		$this->setType($type);
 		$this->setTtl($ttl);
 		$this->setClass($class);
-		$this->setRdata($rdata);
 
-		$this->parseRdata();
+		$this->updateRdata($rdata);
 	}
 
 	public function setDomain($domain)
@@ -57,7 +56,7 @@ class Record
 		return $this->class;
 	}
 
-	public function setRdata($rdata)
+	protected function updateRdata($rdata)
 	{
 		$this->rdata = $rdata;
 	}
@@ -65,8 +64,6 @@ class Record
 	{
 		return $this->rdata;
 	}
-
-	protected function parseRdata() {}
 
 	public static function factory($record)
 	{

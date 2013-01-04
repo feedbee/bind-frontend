@@ -7,10 +7,10 @@ class Mx extends Record
 	private $priority;
 	private $destination;
 
-	protected function parseRdata()
+	protected function updateRdata($rdata)
 	{
-		$rdata = preg_replace('/\s+/', ' ', $this->getRdata());
-		$this->setRdata($rdata);
+		$rdata = preg_replace('/\s+/', ' ', $rdata);
+		parent::updateRdata($rdata);
 
 		$rdataArray = explode(' ', $rdata);
 

@@ -9,10 +9,10 @@ class Srv extends Record
 	private $port;
 	private $target;
 
-	protected function parseRdata()
+	protected function updateRdata($rdata)
 	{
-		$rdata = preg_replace('/\s+/', ' ', $this->getRdata());
-		$this->setRdata($rdata);
+		$rdata = preg_replace('/\s+/', ' ', $rdata);
+		parent::updateRdata($rdata);
 
 		$rdataArray = explode(' ', $rdata);
 
