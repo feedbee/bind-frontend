@@ -12,10 +12,19 @@ class Soa extends Record
 	private $expiry;
 	private $minTtl;
 
+	private $template =
+'%s %s (
+				%d	; serial, todays date + todays serial #
+				%s		; refresh, seconds
+				%s		; retry, seconds
+				%s		; expire, seconds
+				%s )		; minimum, seconds';
+
+	private $rowTemplate = '@	IN		SOA	%s';
+
 	protected function updateRdata($rdata)
 	{
 		$rdata = preg_replace('/\s+/', ' ', $rdata);
-		parent::updateRdata($rdata);
 
 		$rdataArray = explode(' ', $rdata);
 
@@ -30,6 +39,18 @@ class Soa extends Record
 		$this->setRetry($rdataArray[4]);
 		$this->setExpiry($rdataArray[5]);
 		$this->setMinTtl($rdataArray[6]);
+	}
+	public function getRdata()
+	{
+		return sprintf($this->getTemplate(),
+			$this->getZone(),
+			$this->getAdmin(),
+			$this->getSerial(),
+			$this->getRefresh(),
+			$this->getRetry(),
+			$this->getExpiry(),
+			$this->getMinTtl()
+		);
 	}
 
 	public function setZone($zone)
@@ -93,5 +114,28 @@ class Soa extends Record
 	public function getMinTtl()
 	{
 		return $this->minTtl;
+	}
+
+	public function __toString()
+	{
+		return sprintf($this->getRowTemplate(), $this->getRdata());
+	}
+
+	public function setTemplate($template)
+	{
+		$this->template = $template;
+	}
+	public function getTemplate()
+	{
+		return $this->template;
+	}
+
+	public function setRowTemplate($rowTemplate)
+	{
+		$this->rowTemplate = $rowTemplate;
+	}
+	public function getRowTemplate()
+	{
+		return $this->rowTemplate;
 	}
 }

@@ -10,6 +10,8 @@ class Record
 	private $class;
 	private $rdata;
 
+	private $template = "%s\t%s\t%s\t%s\t%s\n";
+
 	public function __construct($domain, $type, $ttl, $class, $rdata)
 	{
 		$this->setDomain($domain);
@@ -65,6 +67,17 @@ class Record
 		return $this->rdata;
 	}
 
+	public function __toString()
+	{
+		return sprintf($this->getTemplate(),
+			$this->getDomain(),
+			$this->getType(),
+			$this->getTtl(),
+			$this->getClass(),
+			$this->getRdata()
+	)   ;
+	}
+
 	public static function factory($record)
 	{
 		$class = $record['class'];
@@ -75,5 +88,14 @@ class Record
 		} else {
 			return new Record($record['domain'], $record['type'], $record['ttl'], $record['class'], $record['rdata']);
 		}
+	}
+
+	public function setTemplate($template)
+	{
+		$this->template = $template;
+	}
+	public function getTemplate()
+	{
+		return $this->template;
 	}
 }

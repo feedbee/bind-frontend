@@ -8,6 +8,8 @@ class Standard
 	private $soa;
 	private $records;
 
+	private $template = "%s\n%s\n\n%s";
+
 	function __construct($ttl = null, $soa = null, array $records = array())
 	{
 		$this->ttl = $ttl;
@@ -15,7 +17,7 @@ class Standard
 		$this->records = $records;
 	}
 
-	public function setTtl($ttl)
+	public function setTtl(\Bind\ZoneFile\Directive $ttl)
 	{
 		$this->ttl = $ttl;
 	}
@@ -68,5 +70,19 @@ class Standard
 				break;
 			}
 		}
+	}
+
+	public function __toString()
+	{
+		return sprintf($this->getTemplate(), $this->getTtl(), $this->getSoa(), implode("\n", $this->getRecords()));
+	}
+
+	public function setTemplate($template)
+	{
+		$this->template = $template;
+	}
+	public function getTemplate()
+	{
+		return $this->template;
 	}
 }

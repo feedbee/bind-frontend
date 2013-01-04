@@ -33,3 +33,5 @@ require_once __DIR__ . '/app/bootstrap.php';
 
 $records = \Bind\ZoneFile\Reader\StandardReader::readStdin();
 var_dump($records);
+
+print $records;

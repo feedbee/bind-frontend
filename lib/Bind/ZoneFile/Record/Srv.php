@@ -12,7 +12,6 @@ class Srv extends Record
 	protected function updateRdata($rdata)
 	{
 		$rdata = preg_replace('/\s+/', ' ', $rdata);
-		parent::updateRdata($rdata);
 
 		$rdataArray = explode(' ', $rdata);
 
@@ -24,6 +23,10 @@ class Srv extends Record
 		$this->setWeight($rdataArray[1]);
 		$this->setPort($rdataArray[2]);
 		$this->setTarget($rdataArray[3]);
+	}
+	public function getRdata()
+	{
+		return "{$this->getPriority()} {$this->getWeight()} {$this->getPort()} {$this->getTarget()}";
 	}
 
 	public function setPriority($priority)

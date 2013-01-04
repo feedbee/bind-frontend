@@ -10,7 +10,6 @@ class Mx extends Record
 	protected function updateRdata($rdata)
 	{
 		$rdata = preg_replace('/\s+/', ' ', $rdata);
-		parent::updateRdata($rdata);
 
 		$rdataArray = explode(' ', $rdata);
 
@@ -21,6 +20,11 @@ class Mx extends Record
 		$this->setPriority($rdataArray[0]);
 		$this->setDestination($rdataArray[1]);
 	}
+	public function getRdata()
+	{
+		return "{$this->getPriority()} {$this->getDestination()}";
+	}
+
 
 	public function setPriority($priority)
 	{

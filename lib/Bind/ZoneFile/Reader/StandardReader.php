@@ -15,7 +15,7 @@ class StandardReader extends Reader
 		$zoneFile = new \Bind\ZoneFile\Standard;
 		foreach ($records as $record) {
 			if ($record instanceof \Bind\ZoneFile\Directive && $record->getName() == 'TTL') {
-				$zoneFile->setTtl($record->getValue());
+				$zoneFile->setTtl($record);
 			} elseif ($record instanceof \Bind\ZoneFile\Record\Soa) {
 				$zoneFile->setSoa($record);
 			} else {

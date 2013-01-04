@@ -10,5 +10,5 @@ $TTL	10800
 @		NS	ns1.example.com.
 @		NS	ns1.example.com.
 
-@		A	8.8.8.8
-@		TXT	Privet!
+test		A	8.8.8.8
+test.example.com.		TXT	Privet!
