@@ -53,6 +53,33 @@ class Soa extends Record
 		);
 	}
 
+	public function incrementSerial()
+	{
+		$serial = $this->getSerial();
+
+		if (strlen($serial) < 10) {
+			throw new InvalidSerialFormatException("Serial `$serial` has invalid format");
+		}
+
+		$date = substr($serial, 0, 8);
+		$number = substr($serial, 8);
+
+		if (!ctype_digit($number)) {
+			throw new InvalidSerialFormatException("Serial today's part `$number` has invalid format");
+		}
+
+		$today = date("Ymd");
+		if ($date == $today) {
+			$number++;
+			$serial = "$date$number";
+		} else {
+			$number = '00';
+			$serial = "$today$number";
+		}
+
+		$this->setSerial($serial);
+	}
+
 	public function setZone($zone)
 	{
 		$this->zone = $zone;
