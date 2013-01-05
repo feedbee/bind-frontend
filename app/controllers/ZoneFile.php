@@ -8,7 +8,10 @@ class ZoneFile
 	{
 		$view = new \Utils\View;
 
-		$h = fopen(APP_ROOT . '/../tests/db.xxx', 'r');
+		$zone = 'example.com';
+
+		$dir = \Utils\Config::get('zone_files_dir');
+		$h = fopen("$dir/db.$zone", 'r');
 		$records = \Bind\ZoneFile\Reader\StandardReader::read($h);
 		fclose($h);
 

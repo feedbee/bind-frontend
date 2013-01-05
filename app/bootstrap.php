@@ -14,3 +14,13 @@ $loader->registerNamespaces(array(
 	'Utils' => APP_LIB_ROOT . '/../lib',
 ));
 $loader->register();
+
+if (file_exists(APP_ROOT . '/config.php')) {
+	$config = require APP_ROOT . '/config.php';
+	if (file_exists(APP_ROOT . '/config.local.php')) {
+		$configLocal = require APP_ROOT . '/config.local.php';
+		$config = array_merge($config, $configLocal);
+	}
+
+	Utils\Config::$config = $config;
+}
