@@ -10,7 +10,7 @@ class Reader
 		return self::process($records);
 	}
 
-	private function process($records)
+	private static function process($records)
 	{
 		$recordsNormalized = \Bind\ZoneFile\Normalizer\Normalizer::normalize($records);
 

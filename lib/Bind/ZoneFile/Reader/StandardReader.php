@@ -10,7 +10,7 @@ class StandardReader extends Reader
 		return self::process($records);
 	}
 
-	private function process($records)
+	private static function process($records)
 	{
 		$zoneFile = new \Bind\ZoneFile\Standard;
 		foreach ($records as $record) {
