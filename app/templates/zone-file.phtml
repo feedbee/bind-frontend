@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bind9 Frontend</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</head>
-<body>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
+<?php
+/* @var \Bind\ZoneFile\Standard $records */
+$records = $this->records;
+?>
             <h1>DNS zone example.com</h1>
             <h3>SOA record and global TTL</h3>
 <pre>
-$TTL    10800
-@       IN      SOA     ns1.example.com. support.example.com. (
-                        2011122801	; serial, todays date + todays serial #
-                        10800		; refresh, seconds
-                        3600		; retry, seconds
-                        604800		; expire, seconds
-                        86400 )		; minimum, seconds
+$TTL    <?php echo htmlspecialchars($records->getTtl()->getValue()); ?>
+@       IN      SOA     <?php echo htmlspecialchars($records->getSoa()->getZone()); ?> <?php echo htmlspecialchars($records->getSoa()->getAdmin()); ?> (
+                        <?php echo htmlspecialchars($records->getSoa()->getSerial()); ?>	; serial as date + serial number
+                        <?php echo htmlspecialchars($records->getSoa()->getRefresh()); ?>		; refresh in seconds
+                        <?php echo htmlspecialchars($records->getSoa()->getRetry()); ?>		; retry in seconds
+                        <?php echo htmlspecialchars($records->getSoa()->getExpiry()); ?>		; expire in seconds
+                        <?php echo htmlspecialchars($records->getSoa()->getMinTtl()); ?> )		; minimum in seconds
 </pre>
             <a class="btn btn-small"><i class="icon-edit"></i> Edit</a>
 
@@ -35,56 +27,20 @@ $TTL    10800
                 </tr>
                 </thead>
                 <tbody>
+<?php
+                    $i = 1;
+                    foreach ($records->getRecords() as $record) { ?>
                 <tr>
-                    <td>1</td>
-                    <td>@</td>
-                    <td>A</td>
-                    <td>1.1.1.1</td>
+                    <td><?php echo $i++; ?></td>
+                    <td><?php echo htmlspecialchars($record->getDomain()); ?></td>
+                    <td><?php echo htmlspecialchars($record->getClass()); ?></td>
+                    <td><?php echo str_replace(array("\t", "\r", "\n"), array("    ", ' ', ' '), htmlspecialchars($record->getRdata())); ?></td>
                     <td>
                         <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
                         <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>example.com.</td>
-                    <td>NS</td>
-                    <td>ns1.example.com.</td>
-                    <td>
-                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
-                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>org</td>
-                    <td>CNAME</td>
-                    <td>example.org</td>
-                    <td>
-                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
-                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>example.com.</td>
-                    <td>TXT</td>
-                    <td>v=spf1 -all</td>
-                    <td>
-                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
-                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>example.com.</td>
-                    <td>MX</td>
-                    <td>10 example.net.</td>
-                    <td>
-                        <a class="btn btn-mini form-edit-button"><i class="icon-edit"></i> Edit</a>
-                        <a class="btn btn-mini form-remove-button"><i class="icon-remove-circle"></i> Remove</a>
-                    </td>
-                </tr>
+<?php } ?>
 
                 <tr id="record-add-template" style="display: none;">
                     <td></td>
@@ -124,15 +80,3 @@ $TTL    10800
                     <button class="btn btn-danger removal-record-do" data-dismiss="modal">Yes, remove it!</button>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/jquery.hotkeys.js"></script>
-<script src="bootstrap/js/bootstrap-tooltip.js"></script>
-<script src="bootstrap/js/bootstrap-modal.js"></script>
-
-<script src="js/bind-frontend-ui.js"></script>
-</body>
-</html>
