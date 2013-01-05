@@ -95,7 +95,7 @@ BindFrontend.Ui.editRecordAction = function(row) {
     editRow.children().first().text(row.children().first().text());
     editRow.children().eq(1).children().first().val(row.children().eq(1).text());
     editRow.children().eq(2).children().first().val(row.children().eq(2).text());
-    editRow.children().eq(3).children().first().val(row.children().eq(3).text());
+    editRow.children().eq(3).find('input').val(row.children().eq(3).text());
 
     row.hide();
 };
