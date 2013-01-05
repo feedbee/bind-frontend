@@ -10,7 +10,7 @@ class Record
 	private $class;
 	private $rdata;
 
-	private $template = "%s\t%s\t%s\t%s\t%s\n";
+	private $template = "%s\t%s\t%s\t%s\t%s";
 
 	public function __construct($domain, $type, $ttl, $class, $rdata)
 	{

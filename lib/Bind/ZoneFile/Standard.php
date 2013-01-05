@@ -4,11 +4,20 @@ namespace Bind\ZoneFile;
 
 class Standard
 {
+	/**
+	 * @var \Bind\ZoneFile\Directive
+	 */
 	private $ttl;
+	/**
+	 * @var \Bind\ZoneFile\Record\Soa
+	 */
 	private $soa;
+	/**
+	 * @var \Bind\ZoneFile\Record\Record[]
+	 */
 	private $records;
 
-	private $template = "%s\n%s\n\n%s";
+	private $template = "%s\n%s\n\n%s\n";
 
 	function __construct($ttl = null, $soa = null, array $records = array())
 	{
@@ -65,7 +74,7 @@ class Standard
 	{
 		foreach ($this->records as $index => $internalRecord) {
 			if ($record === $internalRecord) {
-				unset($this->records[$internalRecord]);
+				unset($this->records[$index]);
 				$this->records = array_values($this->records);
 				break;
 			}
